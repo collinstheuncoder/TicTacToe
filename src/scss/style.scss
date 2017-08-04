@@ -4,3 +4,49 @@ h2 {
 	font-size: 1.5em;
 	text-transform: uppercase;
 }
+
+// Grid
+.grid {
+	display: grid;
+	grid-template-columns: 33% 33% 33%;
+	text-align: center;
+	max-width: 30vw;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+
+	div {
+		height: 9em;
+		border: 1px solid #666666;
+
+		&:first-of-type, 
+		&:nth-of-type(4), 
+		&:nth-of-type(7) {
+			border-left: none;
+		}
+
+		&:first-of-type, 
+		&:nth-of-type(2), 
+		&:nth-of-type(3) {
+			border-top: none;
+		}
+
+		&:nth-of-type(3), 
+		&:nth-of-type(6), 
+		&:last-of-type {
+			border-right: none;
+		}
+
+		&:nth-of-type(7), 
+		&:nth-of-type(8), 
+		&:last-of-type {
+			border-bottom: none;
+		}
+
+		span {
+			font-size: 3em;
+			font-weight: 300;
+			color: #dddddd;
+		}
+	}
+}

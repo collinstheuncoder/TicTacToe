@@ -9,48 +9,73 @@ class SelectPlayer extends React.Component {
     
     this.state = {
       open: false,
-      side1: 'X',
-      side2: '0',
+      disabled: true,
+      sideX: 'X',
+      sideO: '0',
       player: null,
       computer: null,
       selectedSide: null
     }; 
 
-    this.onOpen = this.onOpen.bind(this);  
-    this.onClose = this.onClose.bind(this);
+    this.baseState = this.state;
+
+    this.onOpen       = this.onOpen.bind(this);  
+    this.onClose      = this.onClose.bind(this);
     this.onSelectSide = this.onSelectSide.bind(this);
+    this.onSubmitSide = this.onSubmitSide.bind(this);
   }
 
+  // Open Select Side Modal
   onOpen() {
     this.setState({ open: true });
   }
 
+  // Close Select Side Modal
   onClose() {
-    this.setState({ open: false });
+    this.setState(this.baseState);
   }
 
-  onSideChange(e) {
+  // Select Player Side 
+  onSelectSide(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      player: e.target.value,
+      disabled: false
     });
   }
 
-  onSelectSide() {
-    const { side1, side2, selectedSide } = this.state;
+  // Submit (Selected) Player & Computer Sides
+  onSubmitSide() {
+    const { sideX, sideO, selectedSide } = this.state;
 
-    if(selectedSide === side1)
-      this.setState({ player: side1, computer: side2 });
+    if(selectedSide === sideX)
+      this.setState({ 
+        player: sideX, 
+        computer: sideO, 
+        open: false,
+        disabled: false
+      });
     else
-      this.setState({ player: side2, computer: side1 });
+      this.setState({ 
+        player: sideO, 
+        computer: sideX, 
+        open: false,
+        disabled: false
+      });
   }
 
   render() {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
-        onTouchTap={this.onClose}
-      />
+        primary={ true }
+        onClick={ this.onClose }
+      />,
+      <FlatButton
+        label="Submit"
+        primary={ true }
+        disabled={ this.state.disabled }
+        onClick={ this.onSubmitSide }
+      />,
     ];
 
     const buttonStyle = {
@@ -62,7 +87,7 @@ class SelectPlayer extends React.Component {
       width: '500px',
     };
 
-    const { open, side1, side2,  } = this.state;
+    const { open, sideX, sideO,  } = this.state;
 
     return (
       <div>
@@ -72,11 +97,21 @@ class SelectPlayer extends React.Component {
           style={ modalStyle }
           actions={ actions }
           modal={false}
-          open={ this.state.open }
+          open={ open }
           onRequestClose={ this.onClose }
         >
-          <RaisedButton className="player" label="X" name="side1" value={ this.state.side1 } onChange={ this.onSideChange } onClick={ this.onSelectSide }/>
-          <RaisedButton className="player" label="O" name="side2" value={ this.state.side2 } onChange={ this.onSideChange } onClick={ this.onSelectSide }/>
+          <RaisedButton 
+            className="player" 
+            label="X" 
+            value={ sideX } 
+            onClick={ this.onSelectSide } 
+          />
+          <RaisedButton 
+            className="player" 
+            label="O" 
+            value={ sideO } 
+            onClick={ this.onSelectSide } 
+          />
         </Dialog>
       </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import SelectPlayer from './SelectPlayer';
 import PlayAgain from './PlayAgain';
-import TouchRipple from 'material-ui/internal/TouchRipple';
+import GridItem from './GridItem';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
@@ -13,28 +13,34 @@ class AppGrid extends React.Component {
 		this.state = {
 			
 		};
+
+		this.baseState = this.state;
 		
 		this.onGameplay = this.onGameplay.bind(this);
+		this.onResetGame = this.onResetGame.bind(this);
 	}
 
+	// Play Game
 	onGameplay() {
-		
+		console.log('I am Groot');
+	}
+	
+	// Play Again 
+	onResetGame() {
+		this.setState(this.baseState);
 	}
 
 	render() {
+		const gridItems = [...Array(0||9)].map((x, i) => i);
+
 		return (
 			<div className="gamepage">
 				<SelectPlayer />
 				<div className="grid">
-					<TouchRipple><div><span>X</span></div></TouchRipple>
-					<TouchRipple><div><span></span></div></TouchRipple>
-					<TouchRipple><div><span>O</span></div></TouchRipple>
-					<TouchRipple><div><span></span></div></TouchRipple>
-					<TouchRipple><div><span>O</span></div></TouchRipple>
-					<TouchRipple><div><span>X</span></div></TouchRipple>
-					<TouchRipple><div><span></span></div></TouchRipple>
-					<TouchRipple><div><span></span></div></TouchRipple>
-					<TouchRipple><div><span>O</span></div></TouchRipple>
+					{
+						gridItems.map((item, index) => 
+							<GridItem key={ index } populateGrid={ this.onGameplay }/>)
+					}
 				</div>
 				<PlayAgain />
 			</div>

@@ -9,18 +9,39 @@ class SelectPlayer extends React.Component {
     
     this.state = {
       open: false,
-    };
+      side1: 'X',
+      side2: '0',
+      player: null,
+      computer: null,
+      selectedSide: null
+    }; 
 
-    this.handleOpen = this.handleOpen.bind(this);  
-    this.handleClose = this.handleClose.bind(this);
+    this.onOpen = this.onOpen.bind(this);  
+    this.onClose = this.onClose.bind(this);
+    this.onSelectSide = this.onSelectSide.bind(this);
   }
 
-  handleOpen() {
-    this.setState({open: true});
+  onOpen() {
+    this.setState({ open: true });
   }
 
-  handleClose() {
-    this.setState({open: false});
+  onClose() {
+    this.setState({ open: false });
+  }
+
+  onSideChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  onSelectSide() {
+    const { side1, side2, selectedSide } = this.state;
+
+    if(selectedSide === side1)
+      this.setState({ player: side1, computer: side2 });
+    else
+      this.setState({ player: side2, computer: side1 });
   }
 
   render() {
@@ -28,23 +49,34 @@ class SelectPlayer extends React.Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.onClose}
       />
     ];
 
+    const buttonStyle = {
+      display: 'table',
+      margin: '0 auto 3em',
+    };
+
+    const modalStyle = {
+      width: '500px',
+    };
+
+    const { open, side1, side2,  } = this.state;
+
     return (
       <div>
-        <RaisedButton label="Select Player" onTouchTap={this.handleOpen} />
+        <RaisedButton label="Select Player" onTouchTap={ this.onOpen } style={ buttonStyle }/>
         <Dialog
           title="Select Player"
-          style={{width: 350}}
-          actions={actions}
+          style={ modalStyle }
+          actions={ actions }
           modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
+          open={ this.state.open }
+          onRequestClose={ this.onClose }
         >
-          <RaisedButton className="player" label="X"/>
-          <RaisedButton className="player" label="O"/>
+          <RaisedButton className="player" label="X" name="side1" value={ this.state.side1 } onChange={ this.onSideChange } onClick={ this.onSelectSide }/>
+          <RaisedButton className="player" label="O" name="side2" value={ this.state.side2 } onChange={ this.onSideChange } onClick={ this.onSelectSide }/>
         </Dialog>
       </div>
     );

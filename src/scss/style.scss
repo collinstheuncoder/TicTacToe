@@ -5,6 +5,11 @@ h2 {
 	text-transform: uppercase;
 }
 
+h3 ~ div {
+	margin: 0 auto;
+   display: table;
+}
+
 // Grid
 .grid {
 	display: grid;
@@ -14,10 +19,15 @@ h2 {
 	position: relative;
 	left: 50%;
 	transform: translateX(-50%);
+	
+	> div {
+		transform: translate(0, 0);
+	}
 
 	div {
 		height: 9em;
 		border: 1px solid #666666;
+		cursor: pointer;
 
 		&:first-of-type, 
 		&:nth-of-type(4), 
@@ -47,6 +57,10 @@ h2 {
 			font-size: 3em;
 			font-weight: 300;
 			color: #dddddd;
+			margin: auto;
+			padding-top: 30%;
+			display: block;
 		}
 	}
 }
+

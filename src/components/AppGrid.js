@@ -1,48 +1,40 @@
 import React from 'react';
 import SelectPlayer from './SelectPlayer';
 import PlayAgain from './PlayAgain';
+import TouchRipple from 'material-ui/internal/TouchRipple';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
-
-const sides = ['X', 'O'];
-const player1 = '',
-		player2 = '';
 
 class AppGrid extends React.Component {
 	constructor(props) {
 		super(props);
 		
 		this.state = {
-			selectedPlayer: null,
+			
 		};
 		
-		this.selectSide = this.selectSide.bind(this);
-		this.gameplay = this.gameplay.bind(this);
+		this.onGameplay = this.onGameplay.bind(this);
 	}
 
-	selectSide () {
-		
-	}
-
-	gameplay() {
+	onGameplay() {
 		
 	}
 
 	render() {
 		return (
-			<div className="container">
+			<div className="gamepage">
 				<SelectPlayer />
 				<div className="grid">
-					<div><span>X</span></div>
-					<div><span>X</span></div>
-					<div><span>O</span></div>
-					<div><span>X</span></div>
-					<div><span>O</span></div>
-					<div><span>X</span></div>
-					<div><span>X</span></div>
-					<div><span>O</span></div>
-					<div><span>O</span></div>
+					<TouchRipple><div><span>X</span></div></TouchRipple>
+					<TouchRipple><div><span></span></div></TouchRipple>
+					<TouchRipple><div><span>O</span></div></TouchRipple>
+					<TouchRipple><div><span></span></div></TouchRipple>
+					<TouchRipple><div><span>O</span></div></TouchRipple>
+					<TouchRipple><div><span>X</span></div></TouchRipple>
+					<TouchRipple><div><span></span></div></TouchRipple>
+					<TouchRipple><div><span></span></div></TouchRipple>
+					<TouchRipple><div><span>O</span></div></TouchRipple>
 				</div>
 				<PlayAgain />
 			</div>
